@@ -1,25 +1,25 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from django.forms import Form, ModelForm
-
-from .models import Account, Team
+from .models import Team
 
 
-class SignUpForm(UserCreationForm):
-    email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
+# فرم ثبت‌نام کاربر جدید
+class RegisterForm(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput)
 
     class Meta:
-        model = Account
-        fields = ('username', 'email', 'password1', 'password2',)
+        model = User
+        fields = ['username', 'email', 'password']
 
 
-class TeamForm(ModelForm):
+# فرم ورود
+class LoginForm(forms.Form):
+    username = forms.CharField(max_length=150)
+    password = forms.CharField(widget=forms.PasswordInput)
+
+
+# فرم تیم (ایجاد یا پیوستن به تیم)
+class TeamForm(forms.ModelForm):
     class Meta:
         model = Team
-        fields = ['name']
-
-
-class LoginForm(forms.Form):
-    username = forms.CharField(max_length=10)
-    password = forms.CharField(max_length=32, widget=forms.PasswordInput)
+        fields = ['name', 'zoom_url']
