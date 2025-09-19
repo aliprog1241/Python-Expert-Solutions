@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <title>مدیریت تیم</title>
+</head>
+<body>
+    <h2>مدیریت تیم: {{ team.name }}</h2>
+    <p>مدیر تیم: {{ team.leader.username }}</p>
+
+    <h3>اعضا</h3>
+    <ul>
+        {% for member in members %}
+            <li>{{ member.user.username }}</li>
+        {% empty %}
+            <li>هیچ عضوی وجود ندارد</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'home' %}">بازگشت به خانه</a>
+</body>
+</html>

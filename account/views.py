@@ -72,7 +72,10 @@ def join_or_create_team(request):
 
             team, created = Team.objects.get_or_create(
                 name=team_name,
-                defaults={'zoom_url': zoom_url}
+                defaults={
+                    'zoom_url': zoom_url,
+                    'leader': request.user
+                }
             )
 
             user_profile.team = team
@@ -81,6 +84,14 @@ def join_or_create_team(request):
 
         return redirect('home')
 
+@login_required
+def manage_team(request, team_id):
+    team = Team.objects.get(id=team_id)
+    if request.user != team.leader:
+        return redirect('home')  # فقط مدیر دسترسی دارد
+
+    members = team.members.all()
+    return render(request, 'account/manage_team.html', {'team': team, 'members': members})
 
 # ویو leave_team
 @require_GET
