@@ -82,3 +82,12 @@ def join_or_create_team(request):
         return redirect('home')
 
 
+# ویو leave_team
+@require_GET
+@login_required
+def leave_team(request):
+    user_profile = request.user.userprofile
+    if user_profile.team:
+        user_profile.team = None
+        user_profile.save()
+    return redirect('home')
