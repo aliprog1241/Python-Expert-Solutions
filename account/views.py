@@ -46,3 +46,39 @@ def login(request):
     return render(request, 'login.html', {'form': form})
 
 
+# ویو logout
+@require_GET
+def logout(request):
+    auth_logout(request)
+    return redirect('login')
+
+
+# ویو join_or_create_team
+@require_http_methods(["GET", "POST"])
+@login_required
+def join_or_create_team(request):
+    user_profile = request.user.userprofile
+    if request.method == "GET":
+        if user_profile.team:
+            return redirect('home')
+        form = TeamForm()
+        return render(request, 'team.html', {'form': form})
+
+    if request.method == "POST":
+        form = TeamForm(request.POST)
+        if form.is_valid():
+            team_name = form.cleaned_data['name']
+            zoom_url = form.cleaned_data['zoom_url']
+
+            team, created = Team.objects.get_or_create(
+                name=team_name,
+                defaults={'zoom_url': zoom_url}
+            )
+
+            user_profile.team = team
+            user_profile.save()
+            return redirect('home')
+
+        return redirect('home')
+
+
