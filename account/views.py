@@ -15,3 +15,17 @@ def home(request):
     return render(request, 'home.html', {'team_name': team_name})
 
 
+# ویو register
+@require_http_methods(["GET", "POST"])
+def register(request):
+    if request.method == "POST":
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            auth_login(request, user)
+            return redirect('join_or_create_team')
+    else:
+        form = RegisterForm()
+    return render(request, 'register.html', {'form': form})
+
+
