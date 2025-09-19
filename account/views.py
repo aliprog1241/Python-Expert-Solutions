@@ -29,3 +29,20 @@ def register(request):
     return render(request, 'register.html', {'form': form})
 
 
+# ویو login
+@require_http_methods(["GET", "POST"])
+def login(request):
+    if request.method == "POST":
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(request, username=username, password=password)
+            if user:
+                auth_login(request, user)
+                return redirect('home')
+    else:
+        form = LoginForm()
+    return render(request, 'login.html', {'form': form})
+
+
