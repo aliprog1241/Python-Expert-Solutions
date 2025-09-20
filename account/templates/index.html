@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سامانه مدیریت جلسات</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap');
+
+        * {
+            font-family: 'Vazirmatn', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow-x: hidden;
+            background: #0a0a0a;
+            color: white;
+        }
+
+        /* Hero Section with Dynamic Background */
+        .hero-section {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
+            animation: gradientShift 8s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% {
+                background:
+                    radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+                    radial-gradient(circle at 40% 80%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
+            }
+            33% {
+                background:
+                    radial-gradient(circle at 60% 70%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                    radial-gradient(circle at 30% 60%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
+            }
+            66% {
+                background:
+                    radial-gradient(circle at 80% 30%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                    radial-gradient(circle at 20% 80%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+                    radial-gradient(circle at 60% 20%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
+            }
+        }
+
+        /* Floating Particles */
+        .floating-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: floatParticle 8s linear infinite;
+        }
+
+        .particle:nth-child(1) {
+            width: 6px;
+            height: 6px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .particle:nth-child(2) {
+            width: 4px;
+            height: 4px;
+            top: 60%;
+            left: 20%;
+            animation-delay: -2s;
+        }
+
+        .particle:nth-child(3) {
+            width: 8px;
+            height: 8px;
+            top: 40%;
+            left: 60%;
+            animation-delay: -4s;
+        }
+
+        .particle:nth-child(4) {
+            width: 5px;
+            height: 5px;
+            top: 70%;
+            left: 80%;
+            animation-delay: -6s;
+        }
+
+        .particle:nth-child(5) {
+            width: 3px;
+            height: 3px;
+            top: 30%;
+            left: 90%;
+            animation-delay: -1s;
+        }
+
+        @keyframes floatParticle {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Geometric Shapes */
+        .geometric-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .geometric-shape {
+            position: absolute;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            animation: rotateShape 20s linear infinite;
+        }
+
+        .shape-1 {
+            width: 100px;
+            height: 100px;
+            top: 10%;
+            left: 5%;
+            border-radius: 20%;
+            animation-delay: 0s;
+        }
+
+        .shape-2 {
+            width: 150px;
+            height: 150px;
+            top: 70%;
+            left: 85%;
+            border-radius: 30%;
+            animation-delay: -5s;
+            animation-direction: reverse;
+        }
+
+        .shape-3 {
+            width: 80px;
+            height: 80px;
+            top: 50%;
+            left: 10%;
+            transform: rotate(45deg);
+            animation-delay: -10s;
+        }
+
+        @keyframes rotateShape {
+            from {
+                transform: rotate(0deg) scale(1);
+                opacity: 0.3;
+            }
+            50% {
+                opacity: 0.6;
+                transform: rotate(180deg) scale(1.1);
+            }
+            to {
+                transform: rotate(360deg) scale(1);
+                opacity: 0.3;
+            }
+        }
+
+        /* Hero Content */
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ffffff 0%, #f0f0ff 50%, #ffffff 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% 200%;
+            animation: textShimmer 3s ease-in-out infinite;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+        }
+
+        @keyframes textShimmer {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .hero-subtitle {
+            font-size: 1.4rem;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 3rem;
+            line-height: 1.8;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Button Styles */
+        .btn-hero {
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.6s;
+        }
+
+        .btn-hero:hover::before {
+            left: 100%;
+        }
+
+        .btn-hero:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .btn-hero:active {
+            transform: translateY(-1px) scale(1.02);
+        }
+
+        .btn-primary-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-success-hero {
+            background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-info-hero {
+            background: linear-gradient(135deg, #45b7d1 0%, #96c93d 100%);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 6rem 0;
+            background: linear-gradient(180deg, #0a0a0a 0%, #1a1a2e 100%);
+            position: relative;
+        }
+
+        .features-section::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2, #4ecdc4, #44a08d, #45b7d1);
+            background-size: 300% 100%;
+            animation: gradientMove 3s ease infinite;
+        }
+
+        @keyframes gradientMove {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 4rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 24px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2, #4ecdc4);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(102, 126, 234, 0.3);
+            border-color: rgba(102, 126, 234, 0.5);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: white;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .feature-icon::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #667eea, #764ba2, #4ecdc4, #667eea);
+            border-radius: 50%;
+            z-index: -1;
+            animation: iconRotate 3s linear infinite;
+        }
+
+        @keyframes iconRotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .feature-description {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        /* Scrolling Animation */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+
+        .scroll-arrow {
+            width: 30px;
+            height: 50px;
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            border-radius: 20px;
+            position: relative;
+            cursor: pointer;
+            animation: scrollBounce 2s infinite;
+        }
+
+        .scroll-arrow::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            animation: scrollDot 2s infinite;
+        }
+
+        @keyframes scrollBounce {
+            0%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            50% {
+                transform: translateX(-50%) translateY(10px);
+            }
+        }
+
+        @keyframes scrollDot {
+            0% {
+                top: 8px;
+                opacity: 1;
+            }
+            100% {
+                top: 32px;
+                opacity: 0;
+            }
+        }
+
+        /* Footer */
+        .footer {
+            background: #0a0a0a;
+            padding: 2rem 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn-hero {
+                width: 100%;
+                max-width: 280px;
+                justify-content: center;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .features-section {
+                padding: 4rem 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content {
+                padding: 1rem;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .feature-card {
+                padding: 2rem;
+            }
+        }
+
+        /* Custom Animations */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        .fade-in-up.delay-1 { animation-delay: 0.2s; }
+        .fade-in-up.delay-2 { animation-delay: 0.4s; }
+        .fade-in-up.delay-3 { animation-delay: 0.6s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <!-- Background Elements -->
+        <div class="floating-particles">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+        </div>
+
+        <div class="geometric-bg">
+            <div class="geometric-shape shape-1"></div>
+            <div class="geometric-shape shape-2"></div>
+            <div class="geometric-shape shape-3"></div>
+        </div>
+
+        <!-- Hero Content -->
+        <div class="hero-content">
+            <h1 class="hero-title fade-in-up">
+                سامانه مدیریت جلسات
+            </h1>
+            <p class="hero-subtitle fade-in-up delay-1">
+                مدیریت حرفه‌ای جلسات آنلاین با امکانات پیشرفته
+                <br>
+                تجربه‌ای نو در دنیای جلسات مجازی
+            </p>
+            <div class="hero-buttons fade-in-up delay-2">
+                <a href="{% url 'login' %}" class="btn-hero btn-primary-hero">
+                    <i class="fas fa-sign-in-alt"></i>
+                    ورود به سامانه
+                </a>
+                <a href="{% url 'register' %}" class="btn-hero btn-success-hero">
+                    <i class="fas fa-user-plus"></i>
+                    ثبت نام رایگان
+                </a>
+                <a href="{% url 'home' %}" class="btn-hero btn-info-hero">
+                    <i class="fas fa-home"></i>
+                    صفحه اصلی
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="scroll-indicator">
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">
+                ویژگی‌های برتر سامانه
+            </h2>
+
+            <div class="row g-4">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <h3 class="feature-title">جلسات HD</h3>
+                        <p class="feature-description">
+                            برگزاری جلسات با کیفیت تصویر و صدای فوق‌العاده با پشتیبانی از فناوری‌های روز دنیا
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3 class="feature-title">مدیریت تیمی</h3>
+                        <p class="feature-description">
+                            ایجاد و مدیریت تیم‌های کاری با امکان تنظیمات دسترسی و نقش‌های مختلف اعضا
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3 class="feature-title">امنیت بالا</h3>
+                        <p class="feature-description">
+                            حفاظت از اطلاعات شما با استفاده از رمزنگاری پیشرفته و سیستم‌های امنیتی به‌روز
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="400">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <h3 class="feature-title">برنامه‌ریزی هوشمند</h3>
+                        <p class="feature-description">
+                            زمان‌بندی خودکار جلسات با یکپارچگی کامل با تقویم‌های مختلف و یادآوری‌های هوشمند
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="500">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-share-alt"></i>
+                        </div>
+                        <h3 class="feature-title">اشتراک‌گذاری آسان</h3>
+                        <p class="feature-description">
+                            به اشتراک‌گذاری فایل‌ها و صفحه نمایش با کیفیت بالا و بدون محدودیت در حجم
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="600">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h3 class="feature-title">سازگاری کامل</h3>
+                        <p class="feature-description">
+                            دسترسی از هر دستگاهی - کامپیوتر، تبلت یا موبایل با رابط کاربری بهینه‌شده
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="mb-0 text-muted">
+                © 2025 سامانه مدیریت جلسات. تمامی حقوق محفوظ است.
+            </p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        // Initialize AOS (Animate On Scroll)
+        AOS.init({
+            duration: 1000,
+            easing: 'ease-in-out',
+            once: true,
+            mirror: false
+        });
+
+        // Smooth scrolling for scroll indicator
+        document.querySelector('.scroll-indicator').addEventListener('click', function() {
+            document.querySelector('.features-section').scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+
+        // Parallax effect for background elements
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const rate = scrolled * -0.5;
+
+            document.querySelector('.floating-particles').style.transform = `translateY(${rate}px)`;
+            document.querySelector('.geometric-bg').style.transform = `translateY(${rate * 0.3}px)`;
+        });
+
+        // Button hover effects with sound feedback (visual)
+        document.querySelectorAll('.btn-hero').forEach(button => {
+            button.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px) scale(1.08)';
+            });
+
+            button.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(-3px) scale(1.05)';
+            });
+
+            button.addEventListener('click', function(e) {
+                // Create ripple effect
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                ripple.classList.add('ripple-effect');
+
+                this.appendChild(ripple);
+
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+
+        // Dynamic text animation
+        function animateText() {
+            const title = document.querySelector('.hero-title');
+            const text = title.textContent;
+            title.innerHTML = '';
+
+            [...text].forEach((letter, i) => {
+                const span = document.createElement('span');
+                span.textContent = letter === ' ' ? '\u00A0' : letter;
+                span.style.animationDelay = `${i * 0.1}s`;
+                span.classList.add('letter-animation');
+                title.appendChild(span);
+            });
+        }
+
+        // Feature cards interaction
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.querySelector('.feature-icon').style.transform = 'scale(1.2) rotate(10deg)';
+            });
+
+            card.addEventListener('mouseleave', function() {
+                this.querySelector('.feature-icon').style.transform = 'scale(1) rotate(0deg)';
+            });
+        });
+
+        // Loading animation
+        window.addEventListener('load', function() {
+            document.body.classList.add('loaded');
+            setTimeout(() => {
+                document.querySelectorAll('.fade-in-up').forEach(el => {
+                    el.style.animationPlayState = 'running';
+                });
+            }, 500);
+        });
+
+        // Add CSS for dynamic effects
+        const dynamicStyles = document.createElement('style');
+        dynamicStyles.textContent = `
+            .ripple-effect {
+                position: absolute;
+                background: rgba(255, 255, 255, 0.6);
+                border-radius: 50%;
+                transform: scale(0);
+                animation: ripple-animation 0.6s linear;
+                pointer-events: none;
+            }
+
+            @keyframes ripple-animation {
+                to {
+                    transform: scale(2);
+                    opacity: 0;
+                }
+            }
+
+            .letter-animation {
+                display: inline-block;
+                opacity: 0;
+                animation: letterSlide 0.8s ease-out forwards;
+            }
+
+            @keyframes letterSlide {
+                from {
+                    opacity: 0;
+                    transform: translateY(50px) rotateX(-90deg);
+                }
+                to {
+                    opacity: 1;
+                    transform: translate
