@@ -6,8 +6,8 @@ def index(request):
     return render(request, "index.html")
 
 urlpatterns = [
-    path('', index, name='index'),   # 👈 صفحه اول سایت
+    path('', index, name='index'),
     path('admin/', admin.site.urls),
     path('account/', include('account.urls')),
-    path('home/', include('account.urls')),   # می‌تونی اینو بعداً اصلاح کنی
+    path('home/', include('account.urls')),
 ]
